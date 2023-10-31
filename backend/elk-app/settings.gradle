@@ -1,0 +1,16 @@
+rootProject.name = 'elk-app'
+
+include ":elk-util"
+project(":elk-util").projectDir = file("../elk-util")
+
+include ":elk-constant"
+project(":elk-constant").projectDir = file("../elk-constant")
+
+include ":elk-dto"
+project(":elk-dto").projectDir = file("../elk-dto")
+
+include ":elk-service"
+project(":elk-service").projectDir = file("../elk-service")
+
+include ":elk-service-impl"
+project(":elk-service-impl").projectDir = file("../elk-service-impl")

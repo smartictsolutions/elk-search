@@ -1,0 +1,5 @@
+# docker image file output
+elk-docker/*.tar
+
+# exposed data for test or production
+elk-docker/elk_exposed_config/*.yml

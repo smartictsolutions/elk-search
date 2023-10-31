@@ -1,0 +1,37 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'java-library'
+apply plugin: 'com.diffplug.spotless'
+
+group 'com.smartict.elk'
+version '1.0-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_19
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api group: 'com.google.guava', name: 'guava', version: '30.1.1-jre'
+    api group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '3.1.0'
+    api group: 'org.hibernate', name: 'hibernate-spatial', version: '6.1.7.Final'
+
+
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    
+    api group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.11.0'
+    api group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.3'
+}
+
+spotless {
+    java {
+        target '**/*.java'
+        licenseHeader '/* SmartICT Bilisim A.S. (C) $YEAR */'
+        eclipse().configFile '../elk-java-code-style.xml'
+        removeUnusedImports()
+        importOrder('java', 'javax', 'com.smartict', 'com.ict', '')
+    }
+}
+targetCompatibility = JavaVersion.VERSION_19

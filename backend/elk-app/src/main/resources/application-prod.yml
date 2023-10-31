@@ -1,0 +1,26 @@
+server:
+  port: 7200
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+elk:
+  shutdown-after-load: false
+  is-test-env: false
+  skip-ws-connect: false
+  elasticSearch:
+    username: admin
+    password: password123
+    host: http://142.25.0.2:9200
+  security:
+    cors:
+      allowed-hosts:
+        - http://localhost:7200
+        - http://localhost:7010
+        - http://142.24.0.4:7200
+        - http://152.24.0.21:7010

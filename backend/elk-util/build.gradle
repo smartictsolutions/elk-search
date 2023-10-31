@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'java-library'
+apply plugin: 'com.diffplug.spotless'
+
+group 'com.smartict.elk'
+version '1.0-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_19
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api project(':elk-constant')
+    api group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    implementation group: 'com.github.krraghavan', name: 'xeger', version: '1.0.0-RELEASE'
+    implementation group: 'org.springframework.data' , name: 'spring-data-commons' ,version: '3.0.2'
+    api group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.14.2'
+}
+
+spotless {
+    java {
+        target '**/*.java'
+        licenseHeader '/* SmartICT Bilisim A.S. (C) $YEAR */'
+        eclipse().configFile '../elk-java-code-style.xml'
+        removeUnusedImports()
+        importOrder('java', 'javax', 'com.smartict', 'com.ict', '')
+    }
+}
+targetCompatibility = JavaVersion.VERSION_19

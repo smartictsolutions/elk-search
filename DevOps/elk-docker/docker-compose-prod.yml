@@ -1,0 +1,59 @@
+version: '3.9'
+services:
+  
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.3.3
+    container_name: elasticsearch
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - ELASTICSEARCH_USERNAME=admin
+      - ELASTIC_PASSWORD=password123
+      - xpack.security.enabled=false
+    ports:
+      - 9200:9200
+    networks:
+      elk-net-dev:
+        ipv4_address: 142.25.0.2
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.3.3
+    environment:
+      - ELASTICSEARCH_USERNAME=admin
+      - ELASTIC_PASSWORD=password123
+    container_name: kibana
+    restart: always
+    ports:
+      - 5601:5601 
+    depends_on:
+      - elasticsearch
+    networks:
+      elk-net-dev:
+        ipv4_address: 142.25.0.3
+
+  elk-app:
+    command: bash -c "java -jar -Dspring.config.location=file:/config/elk-app-config.yml /elkapp.jar"
+    container_name: elk-app-container
+    image: elkapp
+    restart: always
+    ports:
+      - "7200:7200"
+    volumes:
+      - ./elk_exposed_config/elk-app-config-base.yml:/config/elk-app-config.yml
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+    networks:
+      elk-net:
+        ipv4_address: 142.24.0.4
+
+networks:
+  elk-net:
+    name: elk-net
+    ipam:
+      driver: default
+      config:
+        - subnet: 142.24.0.0/16
+          gateway: 142.24.0.1

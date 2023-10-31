@@ -1,0 +1,56 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'java-library'
+apply plugin: 'com.diffplug.spotless'
+
+group 'com.smartict.elk'
+version '1.0-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_19
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    api project(':elk-service')
+    api project(':elk-dto')
+
+    api group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.0.1'
+    api group: 'org.mapstruct', name: 'mapstruct', version: '1.4.2.Final'
+    api group: 'org.springframework', name: 'spring-test', version: '6.0.5'
+
+    implementation group: 'org.springframework', name: 'spring-websocket', version: '6.0.5'
+    implementation group: 'org.springframework', name: 'spring-messaging', version: '6.0.5'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
+    implementation group: 'com.github.ozlerhakan', name: 'poiji', version: '3.1.1'
+    implementation group: 'io.github.kostaskougios', name: 'cloning', version: '1.10.3'
+    implementation 'junit:junit:4.13.1'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.9'
+    implementation 'org.springframework.data:spring-data-elasticsearch:5.1.2'
+    implementation 'co.elastic.clients:elasticsearch-java:8.7.1'
+
+
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    api group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
+
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.4.2.Final'
+    testAnnotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.4.2.Final'
+
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.0.1'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '3.0.1'
+}
+
+spotless {
+    java {
+        target '**/*.java'
+        licenseHeader '/* SmartICT Bilisim A.S. (C) $YEAR */'
+        eclipse().configFile '../elk-java-code-style.xml'
+        removeUnusedImports()
+        importOrder('java', 'javax', 'com.smartict', 'com.ict', '')
+    }
+}
+targetCompatibility = JavaVersion.VERSION_19

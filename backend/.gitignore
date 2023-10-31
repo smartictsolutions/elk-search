@@ -1,0 +1,47 @@
+HELP.md
+
+# projects output
+elk-app/bin/
+elk-constant/bin/
+elk-db/bin/
+elk-util/bin/
+elk-dto/bin/
+elk-service/bin/
+elk-service-impl/bin/
+
+elk-app/logs/
+
+.gradle/
+build/
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+.DS_Store
+
+templateUserImport.xlsx

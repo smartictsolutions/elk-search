@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'java-library'
+apply plugin: 'com.diffplug.spotless'
+
+group 'com.smartict.elk'
+version '1.0-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_19
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api project(':elk-dto')
+
+    api group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.0.1'
+
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.9'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
+    implementation 'co.elastic.clients:elasticsearch-java:8.8.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+
+}
+
+spotless {
+    java {
+        target '**/*.java'
+        licenseHeader '/* SmartICT Bilisim A.S. (C) $YEAR */'
+        eclipse().configFile '../elk-java-code-style.xml'
+        removeUnusedImports()
+        importOrder('java', 'javax', 'com.smartict', 'com.ict', '')
+    }
+}
+targetCompatibility = JavaVersion.VERSION_19
