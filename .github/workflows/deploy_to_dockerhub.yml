@@ -22,7 +22,7 @@ jobs:
         
       - name: docker image
         run: |
-          ./gradlew dockerSaveElkImage 
+          ./gradlew dockerSaveElkImage --stacktrace
           docker image ls
 
 
