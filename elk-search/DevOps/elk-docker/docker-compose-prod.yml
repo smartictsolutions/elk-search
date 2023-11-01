@@ -47,7 +47,7 @@ services:
         max-file: "10"
     networks:
       elk-net:
-        ipv4_address: 142.24.0.4
+        ipv4_address: 142.25.0.4
 
 networks:
   elk-net:
@@ -55,5 +55,5 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 142.24.0.0/16
-          gateway: 142.24.0.1
+        - subnet: 142.25.0.0/16
+          gateway: 142.25.0.1
