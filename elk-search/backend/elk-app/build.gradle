@@ -92,7 +92,7 @@ jar {
 /** ===========DOCKER IMAGE OLUŞTURMA=============================================================================== */
 //Uyumsuzluk olmaması için docker-compose-prod dosyasında yazacağımız image ismini alıyor.
 def dockerComposeYml = new Yaml().load(new File(new File("$projectDir").getParentFile().getParentFile().getAbsolutePath() + '/DevOps/elk-docker/docker-compose-prod.yml').newInputStream())
-def dockerComposeOnlyDbYml = new Yaml().load(new File(new File("$projectDir").getParentFile().getParentFile().getAbsolutePath() + '/DevOps/elk-docker/docker-compose-dev-without-management-tools.yml').newInputStream())
+def dockerComposeOnlyDbYml = new Yaml().load(new File(new File("$projectDir").getParentFile().getParentFile().getAbsolutePath() + '/DevOps/elk-docker/docker-compose-dev.yml').newInputStream())
 String appDockerImageName = dockerComposeYml["services"]["elk-app"]["image"]
 
 //Bir önceki build sırasında oluşturulan docker image'ı silinir.
@@ -145,12 +145,6 @@ tasks.withType(JavaCompile) {
     options.compilerArgs += ["-Xlint:deprecation", "-Xlint:unchecked"]
 }
 
-dockerCompose {
-    // settings as usual
-    dbOnly {
-        useComposeFiles = ['../../DevOps/elk-docker/docker-compose-dev-without-management-tools.yml']
-    }
-}
 
 /** ===========SPOTLESS============================================================================================= */
 spotless {
